@@ -2,13 +2,14 @@ import { DUMMY_NEWS } from "@/dummy-news";
 
 interface NewsItem {
   date: string;
+  // другие поля новости
 }
 
 export function getAllNews(): NewsItem[] {
   return DUMMY_NEWS;
 }
 
-export function getLatestNews() {
+export function getLatestNews(): NewsItem[] {
   return DUMMY_NEWS.slice(0, 3);
 }
 
@@ -41,10 +42,7 @@ export function getNewsForYear(year: string) {
   );
 }
 
-export function getNewsForYearAndMonth(
-  year: string,
-  month: string
-): NewsItem[] {
+export function getNewsForYearAndMonth(year: string, month: string) {
   return DUMMY_NEWS.filter((news: NewsItem) => {
     const newsYear = new Date(news.date).getFullYear();
     const newsMonth = new Date(news.date).getMonth() + 1;

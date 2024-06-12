@@ -1,5 +1,8 @@
+"use client";
+
 import { DUMMY_NEWS } from "@/dummy-news";
-import { notFound } from "next/navigation";
+
+import { notFound, useRouter } from "next/navigation";
 
 interface ImagePageProps {
   params: {
@@ -8,6 +11,7 @@ interface ImagePageProps {
 }
 
 const IntercepredImagePage = ({ params }: ImagePageProps) => {
+  const router = useRouter();
   const newsItemId = params.id;
   const newsItem = DUMMY_NEWS.find((item) => item.slug === newsItemId)!;
 
@@ -17,10 +21,12 @@ const IntercepredImagePage = ({ params }: ImagePageProps) => {
 
   return (
     <>
-      <h2>Intercepted!</h2>
-      <div className="fullscreen-image">
-        <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
-      </div>
+      <div className="modal-backdrop" onClick={router.back} />
+      <dialog className="modal" open>
+        <div className="fullscreen-image">
+          <img src={`/images/news/${newsItem.image}`} alt={newsItem.title} />
+        </div>
+      </dialog>
     </>
   );
 };

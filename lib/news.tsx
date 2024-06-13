@@ -1,12 +1,18 @@
+import sql from "better-sqlite3";
+
 import { DUMMY_NEWS } from "@/dummy-news";
+import { News } from "@/app/(content)/news/page";
+
+const db = sql("data.db");
 
 interface NewsItem {
   date: string;
   // другие поля новости
 }
 
-export function getAllNews(): NewsItem[] {
-  return DUMMY_NEWS;
+export function getAllNews() {
+  const news = db.prepare("SELECT * FROM news").all() as News[];
+  return news;
 }
 
 export function getLatestNews(): NewsItem[] {

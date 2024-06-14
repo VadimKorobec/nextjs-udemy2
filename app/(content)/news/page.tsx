@@ -5,15 +5,6 @@
 import NewsList from "@/components/newsList/news-list";
 import { getAllNews } from "@/lib/news";
 
-export interface News {
-  id: string;
-  slug: string;
-  title: string;
-  image: string;
-  date: string;
-  content: string;
-}
-
 const NewsPage = async () => {
   const news = await getAllNews();
 

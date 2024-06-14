@@ -1,8 +1,7 @@
-import { News } from "@/app/(content)/news/page";
 import Link from "next/link";
 
 interface NewsListProps {
-  news: News[];
+  news: News;
 }
 
 const NewsList = ({ news }: NewsListProps) => {

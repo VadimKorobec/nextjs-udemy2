@@ -13,22 +13,22 @@ interface FilteredNewsPageProps {
   };
 }
 
-const FilteredNewsPage = ({ params }: FilteredNewsPageProps) => {
+const FilteredNewsPage = async ({ params }: FilteredNewsPageProps) => {
   const filter = params.filter;
 
   const selectedYear = filter ? filter[0] : undefined;
   const selectedMonth = filter && filter.length > 1 ? filter[1] : undefined;
 
   let news;
-  let links = getAvailableNewsYears();
+  let links = await getAvailableNewsYears();
 
   if (selectedYear && !selectedMonth) {
-    news = getNewsForYear(selectedYear);
+    news = await getNewsForYear(selectedYear);
     links = getAvailableNewsMonths(selectedYear);
   }
 
   if (selectedYear && selectedMonth) {
-    news = getNewsForYearAndMonth(selectedYear, selectedMonth);
+    news = await getNewsForYearAndMonth(selectedYear, selectedMonth);
     links = [];
   }
 
@@ -38,10 +38,12 @@ const FilteredNewsPage = ({ params }: FilteredNewsPageProps) => {
     newsContent = <NewsList news={news} />;
   }
 
+  const availableYear = await getAvailableNewsYears();
+
   if (
-    (selectedYear && !getAvailableNewsYears().includes(+selectedYear)) ||
+    (selectedYear && !availableYear.includes(selectedYear)) ||
     (selectedMonth &&
-      !getAvailableNewsMonths(selectedYear!).includes(+selectedMonth))
+      !getAvailableNewsMonths(selectedYear!).includes(selectedMonth))
   ) {
     throw new Error("Invalid filter");
   }

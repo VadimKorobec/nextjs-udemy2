@@ -15,7 +15,7 @@ export interface News {
 }
 
 const NewsPage = async () => {
-  const news = getAllNews();
+  const news = await getAllNews();
 
   // const [isLoading, setIsloading] = useState<boolean>(false);
   // const [error, setError] = useState<string>("");
@@ -62,6 +62,7 @@ const NewsPage = async () => {
     <>
       <h1>News Page</h1>
       {/* {newsContent} */}
+
       <NewsList news={news} />
     </>
   );

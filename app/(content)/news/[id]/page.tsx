@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { DUMMY_NEWS } from "@/dummy-news";
 import Link from "next/link";
+import { getNewsItem } from "@/lib/news";
 
 interface NewsDetailPageProps {
   params: {
@@ -9,8 +9,9 @@ interface NewsDetailPageProps {
   };
 }
 
-const NewsDetailPage = ({ params }: NewsDetailPageProps) => {
-  const newsItem = DUMMY_NEWS.find((item) => item.slug === params.id)!;
+const NewsDetailPage = async ({ params }: NewsDetailPageProps) => {
+  const newsSlug = params.id;
+  const newsItem = await getNewsItem(newsSlug);
 
   if (!newsItem) {
     notFound();
